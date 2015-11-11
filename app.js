@@ -4,6 +4,7 @@ var hbs = require('hbs');
 var fs = require('fs');
 var path = require("path");
 var fl = require('./fileLoader');
+var Func = require('./Functions');
 var f = "";
 var p = "./data/";
 var fn = "haha";
@@ -20,6 +21,12 @@ fs.readdir(p,function (err, files){
 	    }).forEach(function (file) {
 	        console.log("%s (%s)", file, path.extname(file));
 	        f = file;
+	     	var tmp = file.match("data(.*)txt");
+	     	if(tmp.length > 1)
+	        	fn = tmp[1].substring(1, tmp[1].length-1);	
+	        else
+	        	fn = "NA";
+
 	    });
 }) ;
 
@@ -38,8 +45,19 @@ app.get('/about', function(req, res) {
 });
 
 app.get('/graph/:fname', function(req, res) {
-    var fname = fl.getBlogEntry(req.params.fname);
-    res.render('graph');
+    var filename = req.params.fname;
+    fs.readFile('./data/'+filename+'.txt', 'utf8', function (err,data) {
+		  if (err) {
+		    return console.log(err);
+		  }
+		  	
+		  	var t = {};
+		  	var arrLen = data.split("\n").length;
+		  	t = Func.fetchData(data);
+		  	
+			res.render('graph', {LABELS:Func.getMerged(t,"label",arrLen),DATA:Func.getMerged(t,"data",arrLen)});	  
+	});
+    
 });
 
  
