@@ -8,7 +8,7 @@ var entries = [
  
  
 exports.getBlogEntries = function() {
-    return entries;
+	    return entries;
 }
  
 exports.getBlogEntry = function(id) {

@@ -26,11 +26,12 @@ fs.readdir(p,function (err, files){
 	        console.log("%s (%s)", file, path.extname(file));
 	        f = file;
 	        var tmp = file.match("data(.*)txt");
-	        Func.setFileList(tmp, f);
-	     	if(tmp.length > 1)
+	        if(tmp.length > 1)
 	        	fn = tmp[1].substring(1, tmp[1].length-1);	
 	        else
 	        	fn = "NA";
+	        Func.setFileList(fn, f);
+	     	
 
 	    });
 }) ;
@@ -42,7 +43,8 @@ var bodyParser = require('body-parser');
 app.use(bodyParser()); 
  
 app.get('/', function(req, res) {
-    res.render('index',{title:"My Blog", entries:fl.getBlogEntries(), list:f,fname:fn});
+	console.log(Func.getFileList());
+    res.render('index',{title:"My Blog", entries:fl.getBlogEntries(), list:f,fname:fn, fileList:Func.getFileList()});
 });
  
 app.get('/about', function(req, res) {
