@@ -14,16 +14,32 @@ p.appendChild(r),this.xlabels_.push(r)}}h.strokeStyle=i.getOptionForAxis("axisLi
 //# sourceMappingURL=dygraph-combined.js.map
     </script>
     <style>
+    	body,html{ font-family: Heveltica, Arial; }
 		.graphDivs{width: 500px; margin: 0px auto 0 auto; display: inline-block;}
 		#master{text-align: center;}
+		#place{ margin:  0 0 0 -20px;}
+		.title{ font-size: 18px; margin: 20px 0 80px 0; font-weight: bold; }
+		.controls{ margin: 80px 0 0 0 ; }
+		.bt{ width: 100px;height: 40px; margin: 0 20px 0 0;}
+		#sysmessage{ color:rgb(77,0,25); font-size: 22px; margin: 20px 0 20px 0;}
     </style>
 </head>
 
 <body>
 	<div id="master">
-	<div class="graphDivs" id="graphDiv1" style="width:500px; height:350px;"></div>
-	<div class="graphDivs" id="graphDiv2" style="width:500px; height:350px;"></div>
-	<div class="graphDivs" id="graphDiv3" style="width:500px; height:350px;"></div>
+		<div id="place">
+			<div class="title">Heart Monitor Readings</div>
+			<div class="graphDivs" id="graphDiv1" style="width:500px; height:350px;"></div>
+			<div class="graphDivs" id="graphDiv2" style="width:500px; height:350px;"></div>
+			<div class="graphDivs" id="graphDiv3" style="width:500px; height:350px;"></div>
+			<div class="controls"><input class="bt" type="button" value="Play" onclick="play();">
+			<input class="bt" type="button" value="Pause" onclick="pause();">
+			<input class="bt" type="button" value="Rewind" onclick="rewind();">
+			<input class="bt" type="button" value="Fast forward" onclick="ff();">
+			</div>
+			<div id="sysmessage">
+			</div>
+		</div>
 	</div>
 </body>
 
@@ -32,6 +48,7 @@ var _data = '{{CSV}}';
 var gtimeBegin = 0;
 var gAnimLength = 1800;
 var gAnimSpeed = 1;
+var isPlaying = false;
 //var data2 = parseData(_data);
 var originalDataV1 = parseData(_data,1);
 var originalDataV2 = parseData(_data,2);
@@ -44,9 +61,8 @@ var data = [];
 var g = new Dygraph(document.getElementById("graphDiv1"), graphData, {
     drawPoints: false,
     showRoller: true,
-    title: 'Heart Monitor Readings',
     legend: 'always',
-    valueRange: [-1.5, 1.5],
+	valueRange: [-1.5, 1.5],
     labels: ['Time', 'Val1']
 });
 
@@ -55,8 +71,8 @@ var g = new Dygraph(document.getElementById("graphDiv1"), graphData, {
 var g2 = new Dygraph(document.getElementById("graphDiv2"), graphDataV2, {
     drawPoints: false,
     showRoller: true,
-    title: 'Heart Monitor Readings',
     legend: 'always',
+    colors: ["rgb(255,153,51)"],
     valueRange: [-1.5, 1.5],
     labels: ['Time', 'Val2']
 });
@@ -64,8 +80,8 @@ var g2 = new Dygraph(document.getElementById("graphDiv2"), graphDataV2, {
 var g3 = new Dygraph(document.getElementById("graphDiv3"), graphDataV3, {
     drawPoints: false,
     showRoller: true,
-    title: 'Heart Monitor Readings',
     legend: 'always',
+    colors: ["rgb(0,153,204)"],
     valueRange: [-1.5, 1.5],
     labels: ['Time', 'Val3']
 });
@@ -111,19 +127,61 @@ function parseData(d,index) {
 }
 
 window.intervalId = setInterval(function() {
-        g.updateOptions( { 'file': animate()} );
+		if(isPlaying){
+        g.updateOptions( { 'file': animate("V1")} );
+        g2.updateOptions( { 'file': animate("V2")} );
+        g3.updateOptions( { 'file': animate("V3")} );
+    	}  
 }, 1);
 
 
-function animate(){
+function animate(chart){
 	gtimeBegin+= gAnimSpeed;
 	gAnimLength += gAnimSpeed;
-	return getCurrentTimelineData(originalDataV1, gtimeBegin,gAnimLength);
+	if(gAnimLength > originalDataV1.length){
+		gtimeBegin -= gAnimSpeed;
+		gAnimLength -= gAnimSpeed;
+		document.getElementById('sysmessage').innerHTML =  "End of File";
+	}
+	switch(chart){
+		case "V1":
+			return getCurrentTimelineData(originalDataV1, gtimeBegin,gAnimLength);
+		break;
+
+		case "V2":
+			return getCurrentTimelineData(originalDataV2, gtimeBegin,gAnimLength);
+		break;
+
+		case "V3":
+			return getCurrentTimelineData(originalDataV3, gtimeBegin,gAnimLength);
+		break;
+
+		default:
+		break;
+	}
 }
 function getCurrentTimelineData(data,begin,end){
 	var cloneArray = data.slice();
 	var tmp = cloneArray.splice(begin,(end-begin));
 	return tmp ;
+}
+
+function pause(){
+	isPlaying = false;
+}
+
+function play(){
+	isPlaying = true;
+}	
+
+function rewind(){
+	gtimeBegin = 0;
+	gAnimLength = 1800;
+	document.getElementById("sysmessage").innerHTML = "";
+}
+
+function ff(){
+	gAnimSpeed++;
 }
 
 </script>
