@@ -4,20 +4,24 @@
 </head>
  
 <body>
-<h1>Blog!</h1>
+<h1>Heart Monitor File Selector</h1>
  
-{{#each entries}}
+<!--{{#each entries}}
     <p>
         <a href="/article/{{id}}">{{title}}</a><br/>
         Published: {{published}}
     </p>
-{{/each}} 
+{{/each}} -->
 <footer>
+{{#each fileList}}
+    <p>
+        <a href="/graph/{{filename}}">{{filename}}</a><br/>
+        Published: {{path}}
+    </p>
+{{/each}}
+
 <p>
 <a href="/graph/{{fname}}">{{list}}</a>
-</p>
-<p>
-    <a href="/">Home</a> ~ <a href="/about">About Me</a> ~ <a href="/article">Some Article</a>
 </p>
 </footer>
  

@@ -25,7 +25,8 @@ fs.readdir(p,function (err, files){
 	    }).forEach(function (file) {
 	        console.log("%s (%s)", file, path.extname(file));
 	        f = file;
-	     	var tmp = file.match("data(.*)txt");
+	        var tmp = file.match("data(.*)txt");
+	        Func.setFileList(tmp, f);
 	     	if(tmp.length > 1)
 	        	fn = tmp[1].substring(1, tmp[1].length-1);	
 	        else

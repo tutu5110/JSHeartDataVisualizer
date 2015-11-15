@@ -1,3 +1,10 @@
+var fileData = [];
+exports.setFileList = function(filename, path){
+	fileData.push("{filename:"+filename+",path:"+path+"}");
+}
+exports.getFileList = function(){
+	return fileData;
+}
 exports.fetchData = function(data) {
 	
 	var tmp = data.split("\n");
