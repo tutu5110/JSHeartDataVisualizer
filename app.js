@@ -10,6 +10,7 @@ var f = "";
 var p = "./data/";
 var fn = "haha";
 
+
 //var graph = require('dygraphs');
 
 fs.readdir(p,function (err, files){
@@ -43,7 +44,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser()); 
  
 app.get('/', function(req, res) {
-	console.log(Func.getFileList());
+	
     res.render('index',{title:"My Blog", entries:fl.getBlogEntries(), list:f,fname:fn, fileList:Func.getFileList()});
 });
  

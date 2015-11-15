@@ -22,7 +22,7 @@ exports.fetchData = function(data) {
 	var t = {};
 
 	for(var i = 0 ; i < len; i ++){
-		t[i] = tmp[i].trim().split("   ");
+		t[i] = tmp[i].trim().split(/\s+/);
 		// sanitize counter
 		t[i][0] = parseFloat(t[i][0].substring(0, t[i][0].length - 4)).toFixed(2);
 		for(var j = 1; j<4; j++)

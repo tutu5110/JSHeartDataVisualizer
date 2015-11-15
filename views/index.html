@@ -2,22 +2,16 @@
 <head>
     <title>Home Page</title>
 </head>
- 
+ <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+
 <body>
 <h1>Heart Monitor File Selector</h1>
  
-<!--{{#each entries}}
-    <p>
-        <a href="/article/{{id}}">{{title}}</a><br/>
-        Published: {{published}}
-    </p>
-{{/each}} -->
 <footer>
 <h2>Please select files to visualize</h2>
 {{#each fileList}}
     <p>
          <a href="/graph/{{filename}}">{{filename}}</a><br/>
-        
     </p>
 {{/each}}
 
