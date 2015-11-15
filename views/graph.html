@@ -35,7 +35,9 @@ p.appendChild(r),this.xlabels_.push(r)}}h.strokeStyle=i.getOptionForAxis("axisLi
 			<div class="controls"><input class="bt" type="button" value="Play" onclick="play();">
 			<input class="bt" type="button" value="Pause" onclick="pause();">
 			<input class="bt" type="button" value="Rewind" onclick="rewind();">
-			<input class="bt" type="button" value="Fast forward" onclick="ff();">
+			<input class="bt" type="button" value="Faster" onclick="ff();">
+			<input class="bt" type="button" value="Slower" onclick="pp();">
+			<input class="bt" type="button" value="Reset Speed" onclick="rs();">
 			</div>
 			<div id="sysmessage">
 			</div>
@@ -181,7 +183,17 @@ function rewind(){
 }
 
 function ff(){
-	gAnimSpeed++;
+	gAnimSpeed+=3;
+}
+
+function pp(){
+	gAnimSpeed -= 3;
+	if(gAnimSpeed<=0)
+		gAnimSpeed = 1;
+}
+
+function rs(){
+	gAnimSpeed = 1;
 }
 
 </script>
