@@ -52,18 +52,20 @@ app.get('/about', function(req, res) {
 
 app.get('/graph/:fname', function(req, res) {
     var filename = req.params.fname;
-    fs.readFile('./data/'+filename+'.txt', 'utf8', function (err,data) {
+    var fileLoader = req.query.fileLoader || 'EGM1-1-1';
+	var fcolor = req.query.color || 'black';
+
+    fs.readFile('./data/'+fileLoader+'.txt', 'utf8', function (err,data) {
 		  if (err) {
 		    return console.log(err);
 		  }
-		  	var fcolor = req.query.color || 'black';
+		  	
 		  	var t = {};
 		  	var arrLen = data.split("\n").length;
-		  	//t = Func.fetchData(data);
 		  	t = Func.convert2CSV(data);
 		  //	console.log(t);
 			//res.render('graph', {LABELS:Func.getMerged(t,"label",arrLen),DATA:Func.getMerged(t,"data",arrLen)});	  
-			res.render('graph', {CSV:t,color:fcolor});	  
+			res.render('graph', {CSV:t,color:fcolor,fileList:Func.getFileList(),list:f,fname:fn});	  
 
 	});
     
