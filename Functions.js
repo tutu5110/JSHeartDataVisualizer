@@ -25,7 +25,7 @@ exports.fetchData = function(data) {
 		t[i] = tmp[i].trim().split(/\s+/);
 		// sanitize counter
 		t[i][0] = parseFloat(t[i][0].substring(0, t[i][0].length - 4)).toFixed(2);
-		for(var j = 1; j<4; j++)
+		for(var j = 1; j<3; j++)
 			t[i][j] = calFigure(t[i][j]);
 	}
     return t;
@@ -35,14 +35,16 @@ exports.convert2CSV = function(data){
 	var tmp = data.split("\n");
 	var len = tmp.length;
 	var t = {};
+	var numrols = 0;
 	var strBuilder = "";
 	for(var i = 0 ; i < len ; i ++){
 		t[i] = tmp[i].trim().split(/\s+/);
 
 		// sanitize counter
-		t[i][0] =i;
-		strBuilder = strBuilder + t[i][0]+",";
-		for(var j = 1; j<4; j++){
+	
+		if(numrols == 0)
+			numrols = t[i].length;
+		for(var j = 0; j<numrols; j++){
 			t[i][j] = calFigure(t[i][j]);
 			strBuilder += t[i][j]+",";
 		}

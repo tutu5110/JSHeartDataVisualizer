@@ -52,9 +52,9 @@ var gAnimLength = 1800;
 var gAnimSpeed = 1;
 var isPlaying = false;
 //var data2 = parseData(_data);
-var originalDataV1 = parseData(_data,1);
-var originalDataV2 = parseData(_data,2);
-var originalDataV3 = parseData(_data,3);
+var originalDataV1 = parseData(_data,0);
+var originalDataV2 = parseData(_data,1);
+var originalDataV3 = parseData(_data,2);
 var graphData = getCurrentTimelineData(originalDataV1,gtimeBegin,gAnimLength);
 var graphDataV2 = getCurrentTimelineData(originalDataV2,gtimeBegin,gAnimLength);
 var graphDataV3 = getCurrentTimelineData(originalDataV3,gtimeBegin,gAnimLength);
@@ -116,7 +116,7 @@ function parseData(d,index) {
     for (var i = 0; i < len; i++) {
         re[i] = [];
         _tmp[i] = tmp[i].split(",");
-        re[i][0] = _tmp[i][0];
+        re[i][0] = i;
 		for (var j = 0; j < _tmp[i].length; j++) {
         	if(index == j){
             	re[i][dataIndex] = parseFloat(_tmp[i][j]);
