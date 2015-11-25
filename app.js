@@ -3,13 +3,11 @@ var app = express();
 var hbs = require('hbs');
 var fs = require('fs');
 var path = require("path");
-
 var fl = require('./fileLoader');
 var Func = require('./Functions');
 var f = "";
 var p = "./data/";
 var fn = "haha";
-
 
 //var graph = require('dygraphs');
 
@@ -58,14 +56,14 @@ app.get('/graph/:fname', function(req, res) {
 		  if (err) {
 		    return console.log(err);
 		  }
-		  	
+		  	var fcolor = req.query.color || 'black';
 		  	var t = {};
 		  	var arrLen = data.split("\n").length;
 		  	//t = Func.fetchData(data);
 		  	t = Func.convert2CSV(data);
 		  //	console.log(t);
 			//res.render('graph', {LABELS:Func.getMerged(t,"label",arrLen),DATA:Func.getMerged(t,"data",arrLen)});	  
-			res.render('graph', {CSV:t});	  
+			res.render('graph', {CSV:t,color:fcolor});	  
 
 	});
     
