@@ -54,20 +54,61 @@ app.get('/graph/:fname', function(req, res) {
     var filename = req.params.fname;
     var fileLoader = req.query.fileLoader || 'EGM1-1-1';
 	var fcolor = req.query.color || 'black';
-
-    fs.readFile('./data/'+fileLoader+'.txt', 'utf8', function (err,data) {
+	//get last digits
+	var series = fileLoader+"";
+	series = series.substring(series.lastIndexOf("-")+1,series.length);
+	console.log(series);
+	var readyState = 0;
+	var t = {};
+	var node = {};
+	var path = {};
+    fs.readFile('./data/EGM1-1-'+series+'.txt', 'utf8', function (err,data) {
 		  if (err) {
 		    return console.log(err);
 		  }
 		  	
-		  	var t = {};
-		  	var arrLen = data.split("\n").length;
+		  	
 		  	t = Func.convert2CSV(data);
 		  //	console.log(t);
 			//res.render('graph', {LABELS:Func.getMerged(t,"label",arrLen),DATA:Func.getMerged(t,"data",arrLen)});	  
-			res.render('graph', {CSV:t,color:fcolor,fileList:Func.getFileList(),list:f,fname:fn});	  
 
+			readyState ++;
+			console.log(readyState);
 	});
+
+	fs.readFile('./data/Path1-1-'+series+'.txt', 'utf8', function (err,data) {
+		if (err) {
+		    return console.log(err);
+		  }
+		  var arrLen = data.split("\n").length;
+		  path = Func.convert2CSV(data,true);
+		  readyState++;
+		  console.log(readyState);
+	});
+
+	fs.readFile('./data/Node1-1-'+series+'.txt', 'utf8', function (err,data) {
+		if (err) {
+		    return console.log(err);
+		  }
+		  var arrLen = data.split("\n").length;
+		  node = Func.convert2CSV(data,true);
+		  readyState++;
+		  console.log(readyState);
+	});
+
+
+    var intervalID = setInterval(function(){
+
+
+	   	if(readyState == 3){
+			res.render('graph', {CSV:t,PATH:path,NODE:node,color:fcolor,fileList:Func.getFileList(),list:f,fname:fn});	 
+			clearInterval(intervalID);
+			console.log("its done!!!!!!");
+
+		} 
+
+    }, 100);
+
     
 });
 

@@ -1,0 +1,89 @@
+
+body {background-color:lightgrey}
+h1   {color:blue}
+p    {color:green}
+
+.circle {
+	border-radius: 50%;
+	width: 50px;
+	height: 50px; 
+	/* width and height can be anything, as long as they're equal */
+}
+
+#circle1 {
+	background: green;
+	position: absolute; 
+	left: 500px; 
+	top: 200px; 
+}
+		
+#circle2 {
+	background: green;
+	position: absolute; 
+	left: 500px; 
+	top: 300px; 
+}
+
+#circle3 {
+	background: green;
+	position: absolute; 
+	left: 400px; 
+	top: 500px; 
+}
+
+#circle4 {
+	background: green;
+	position: absolute; 
+	left: 450px; 
+	top: 400px; 
+}
+
+#circle5 {
+	background: green;
+	position: absolute; 
+	left: 600px; 
+	top: 120px; 
+}
+
+#circle6 {
+	background: green;
+	position: absolute; 
+	left: 600px; 
+	top: 200px; 
+}
+#circle7 {
+	background: green;
+	position: absolute; 
+	left: 600px; 
+	top: 280px; 
+}
+#circle8 {
+	background: green;
+	position: absolute; 
+	left: 300px; 
+	top: 420px; 
+}
+#circle9 {
+	background: green;
+	position: absolute; 
+	left: 300px; 
+	top: 500px; 
+}
+#circle10 {
+	background: green;
+	position: absolute; 
+	left: 300px; 
+	top: 580px; 
+}
+#circle11 {
+	background: green;
+	position: absolute; 
+	left: 600px; 
+	top: 500px; 
+}
+
+.line{
+	stroke:rgb(255,0,0);
+	stroke-width:4;
+	
+}

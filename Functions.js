@@ -10,7 +10,9 @@ var w = [
 
 exports.setFileList = function(filename, path){
 	var ct = fileData.length;
-	fileData.push({"filename": ""+filename+""});
+	var senario = "Senario: "+ filename.substring(filename.lastIndexOf("-")+1, filename.length);
+	if(filename.indexOf("EGM") != -1)
+		fileData.push({"filename": ""+filename+"","senario": ""+senario+""});
 }
 exports.getFileList = function(){
 		return fileData;
@@ -31,7 +33,8 @@ exports.fetchData = function(data) {
     return t;
 }
 
-exports.convert2CSV = function(data){
+exports.convert2CSV = function(data,isInt){
+	isInt = isInt || false;
 	var tmp = data.split("\n");
 	var len = tmp.length;
 	var t = {};
@@ -45,7 +48,10 @@ exports.convert2CSV = function(data){
 		if(numrols == 0)
 			numrols = t[i].length;
 		for(var j = 0; j<numrols; j++){
-			t[i][j] = calFigure(t[i][j]);
+			if(!isInt)
+				t[i][j] = calFigure(t[i][j]);
+			else
+				t[i][j] = calFigure(t[i][j],true);
 			strBuilder += t[i][j]+",";
 		}
 		strBuilder = strBuilder.substring(0,strBuilder.length-1);
@@ -77,10 +83,15 @@ exports.getMerged = function(data,type,len){
 	return str.substring(0,str.length-1);
 }
 
-function calFigure(num){
+function calFigure(num,isInt){
+	isInt = isInt || false;
 	if(num != undefined){
 	var tmp = num.split("e");
-	return (tmp[0] * Math.pow(10,tmp[1])).toFixed(5);
+	if(!isInt)
+		return (tmp[0] * Math.pow(10,tmp[1])).toFixed(5);
+	else
+		return (tmp[0] * Math.pow(10,tmp[1])).toFixed(0);
 	}
 	return num;
  }
+
