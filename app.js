@@ -68,6 +68,14 @@ app.get('/images/heart.png', function(req, res) {
     res.sendfile(__dirname + '/images/heart.png');
 });
 
+app.get('/js/jquery-1.11.3.min.js', function(req, res) {
+    res.sendfile(__dirname + '/js/jquery-1.11.3.min.js');
+});
+
+app.get('/css/style.css', function(req, res) {
+    res.sendfile(__dirname + '/css/style.css');
+});
+
 app.get('/js/Chart.js', function(req, res) {
     res.sendfile(__dirname + '/js/Chart.js');
 });
@@ -76,6 +84,7 @@ app.get('/graph/:fname', function(req, res) {
     var filename = req.params.fname;
     var fileLoader = req.query.fileLoader || 'EGM1-1-1';
 	var fcolor = req.query.color || 'black';
+	var call = req.query.call || '-1';
 	//get last digits
 	var series = fileLoader+"";
 	series = series.substring(series.lastIndexOf("-")+1,series.length);
@@ -84,6 +93,21 @@ app.get('/graph/:fname', function(req, res) {
 	var t = {};
 	var node = {};
 	var path = {};
+	console.log(call);
+	if(call == 1){
+
+		var exec = require('child_process').exec;
+		// make sure to enter a relative path (which your exe must be in the root folder)
+		// or an absolute path!
+		var cmd = 'BOCNET_Client.exe';
+		console.log("got here");
+		exec(cmd, function(error, stdout, stderr) {
+		  // command output is in stdout
+		  console.log("ok!");
+		  console.log(error);
+
+		});
+	}
     fs.readFile('./data/EGM1-1-'+series+'.txt', 'utf8', function (err,data) {
 		  if (err) {
 		    return console.log(err);

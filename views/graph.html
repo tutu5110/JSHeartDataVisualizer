@@ -1,228 +1,127 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title></title>
-    <meta charset="utf-8" />
-    <!-- kuk could you help me resolve this? how do i include a jquery into the page<script src="../node_modules/jquery/jquery.js"></script> -->
-     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-      <script src="http://localhost:3000/js/Chart.js"></script>
-     <style>
+<title></title>
+<meta charset="utf-8" />
+<script src="http://localhost:3000/js/jquery-1.11.3.min.js"></script>
+<script src="http://localhost:3000/js/Chart.js"></script>
+<link rel="stylesheet" type="text/css" href="http://localhost:3000/css/style.css">
 
-h1   {color:blue}
-p    {color:green}
+<style>
 
-body,html{ background-color: #000; }
-.circle {
-	border-radius: 50%;
-	position: absolute; 
-	width: 50px;
-	height: 50px; 
-	margin: 30px 0 0 -150px;
+</style>
 
+<script type="text/javascript">
 
-	/* width and height can be anything, as long as they're equal */
-}
+    var graphFromRight = -100;
 
-#circle1 {
-	background: green;
-	left: 500px; 
-	top: 200px; 
+    $(document).ready(function() {
+        console.log("JQUERY READY");
+        var w = $(window).width();
+        var h = $(window).height();
+        var r = w / 1894;
+        console.log(r);
+        $('#place').css("transform", "scale(" + r + "," + r + ")");
+        $('#place').css("margin-right", graphFromRight + "px");
+        //please change the position of the nodes here, the -50px 0 0 -100 means : up, right, bottom left respectively
+        $('#nodes').css("margin", "-50px 0 0 -100px");
+        //please change the position of the path here, the -50px 0 0 -100 means : up, right, bottom left respectively
+        $('.circle').css("margin", "30px 0 0 -180px");
+    });
 
-}
-		
-#circle2 {
-	background: green;
-	 
-	left: 500px; 
-	top: 300px; 
-}
-
-#circle3 {
-	background: green;
-	 
-	left: 400px; 
-	top: 500px; 
-}
-
-#circle4 {
-	background: green;
-	 
-	left: 450px; 
-	top: 400px; 
-}
-
-#circle5 {
-	background: green;
-	 
-	left: 600px; 
-	top: 120px; 
-}
-
-#circle6 {
-	background: green;
-	 
-	left: 600px; 
-	top: 200px; 
-}
-#circle7 {
-	background: green;
-	 
-	left: 600px; 
-	top: 280px; 
-}
-#circle8 {
-	background: green;
-	 
-	left: 300px; 
-	top: 420px; 
-}
-#circle9 {
-	background: green;
-	 
-	left: 300px; 
-	top: 500px; 
-}
-#circle10 {
-	background: green;
-	 
-	left: 300px; 
-	top: 580px; 
-}
-#circle11 {
-	background: green;
-	 
-	left: 600px; 
-	top: 500px; 
-}
-
-.line{
-	stroke:rgb(255,0,0);
-	stroke-width:4;
-	
-}
-
-
-#heartVisualize{
-	
-	height: 650px;
-	margin: 0px 0 0 -150px;
-	padding: 0 0 0 0px;
-	background-color: #f2f2f2;
-
-}
-
-#logos{ position: absolute; margin: 5px 0 0 20px;}
-
-#logoMLAB{background-image: url('http://localhost:3000/images/mlab_logo_bw.png'); width: 155px; height: 33px;  background-position: left; background-repeat: no-repeat; display: inline-block;}
-
-#logoUPenn{background-image: url('http://localhost:3000/images/UPenn_logo_white.png'); width: 155px; height:33px; background-repeat: no-repeat; display: inline-block;  }
-
-#title{ display: inline-block;position: relative; font-size: 36px; margin: 0px 0 0 10%;}
-#heartVisualize div{
-		
-}
-#fileSelect{
-	margin: 10px 100px 0 0; display: inline-block; float: right;
-}
-#myHeader{
-	text-align: center; padding: 0 0 15px 0; 
-}
-#nodes{
-	margin: -50px 0 0 0 ;
-}
-#place{
-	float: right;
-	margin: -600px 100px 0 0 ;
-	-ms-transform: scale(1,1); /* IE 9 */
-    -webkit-transform: scale(1,1); /* Safari */
-    transform: scale(1,1);
-
-
-}
-
-#heartExplain{
-	width: 62%;
-	color: #333;
-	text-align: left;
-	float: right;
-	margin: -350px 0 0 0;
-}
-  	body,html{ font-family: Heveltica, Arial; color: #fff; }
-		.graphDivs{width: 500px; margin: 0px auto 0 auto; display: inline-block;}
-		#master{text-align: center; padding: 20px 0;}
-	
-		#subtitle{ font-size: 14px; float: right; text-align: right; margin: 0 0 0 0; }
-		.controls{ margin: 80px 0 0 0 ; }
-		.bt{ width: 100px;height: 40px; margin: 0 20px 0 0;}
-		#sysmessage{ color:rgb(77,0,25); font-size: 22px; margin: 20px 0 20px 0;}
-    </style>
+    function callFunction(){
+    	var url = window.location.href ;
+    	window.location.href = url + "&call=1";
+    }
+</script>
 </head>
 
 <body>
-	<div id="master">
-		<div id="logos">
-			<div id="logoMLAB"></div>
-			<div id="logoUPenn"></div>
-		</div>
-		
-		<div id="myHeader">
-			<h2 id="title">Heart Simulator</h2>
-			<div id="fileSelect"><select id="filenames" onchange="updateGraph();">
-			{{#each fileList}}
-			  <option value="{{filename}}"> <a href="/graph/{{filename}}">{{senario}}</a></option>
-			  	{{/each}}
-			 </select>
-			 </div>
-		</div>
-		<div id="heartVisualize">
-		<svg id="nodes" height="600" width="100%">
-			<line id="line1" x1="525" y1="225" x2="525" y2="325" class="line"/><!-- Path1: Node1-Node2-->
-			<line id="line2" x1="525" y1="325" x2="475" y2="425" class="line"/><!-- Path2: Node2-Node4-->
-			<line id="line3" x1="475" y1="425" x2="425" y2="525" class="line"/><!-- Path3: Node4-Node3-->
-			<line id="line4" x1="525" y1="225" x2="625" y2="145" class="line"/><!-- Path4: Node1-Node5-->
-			<line id="line5" x1="525" y1="225" x2="625" y2="225" class="line"/><!-- Path5: Node1-Node6-->
-			<line id="line6" x1="525" y1="225" x2="625" y2="305" class="line"/><!-- Path6: Node1-Node7-->
-			<line id="line7" x1="425" y1="525" x2="325" y2="445" class="line"/><!-- Path7: Node3-Node8-->
-			<line id="line8" x1="425" y1="525" x2="325" y2="525" class="line"/><!-- Path8: Node3-Node9-->
-			<line id="line9" x1="425" y1="525" x2="325" y2="605" class="line"/><!-- Path9: Node3-Node10-->
-			<line id="line10" x1="425" y1="525" x2="625" y2="525" class="line"/><!-- Path10: Node3-Node11-->
-			<line id="line11" x1="625" y1="525" x2="525" y2="325" class="line"/><!-- Path11: Node11-Node2-->
-		</svg> 
-		<div id="circle1" class="circle" align="center">1</div> 
-		<div id="circle2" class="circle" align="center">2</div>
-		<div id="circle3" class="circle" align="center">3</div>
-		<div id="circle4" class="circle" align="center">4</div>
-		<div id="circle5" class="circle" align="center">5</div>
-		<div id="circle6" class="circle" align="center">6</div>
-		<div id="circle7" class="circle" align="center">7</div>
-		<div id="circle8" class="circle" align="center">8</div>
-		<div id="circle9" class="circle" align="center">9</div>
-		<div id="circle10" class="circle" align="center">10</div>
-		<div id="circle11" class="circle" align="center">11</div>
-		</div>
-		<div id="place">
-			<div id="subtitle">EGM Readings </div><br><br>
-			<div class="graphDivs" id="graphDiv1" style="width:300px; height:200px;"></div>
-			<div class="graphDivs" id="graphDiv2" style="width:300px; height:200px;"></div>
-			<div class="graphDivs" id="graphDiv3" style="width:300px; height:200px;"></div>
-		</div>
-		<div id="heartExplain">
-		<table cellpadding="0" cellspacing="0"><tr><td>Please put some explanation or text here to explain the meaning of graphs and nodes!!!sapien purus convallis dolor, in accumsan ex purus ut magna. Nam nec sagittis orci. Maecenas tortor orci, lobortis a accumsan non, gravida vitae quam. Aenean ornare porttitor nibh a feugiat. Nullam mollis congue commodo.</td><td> <img src="http://localhost:3000/images/heart.png"></td></tr></table></div>
-			<div id="sysmessage">
-			</div>
-		
-			<div class="controls">
-			<input class="bt" type="button" value="Play" onclick="play();">
-			<input class="bt" type="button" value="Pause" onclick="pause();">
-			<input class="bt" type="button" value="Rewind" onclick="rewind();">
-			<input class="bt" type="button" value="Faster" onclick="ff();">
-			<input class="bt" type="button" value="Slower" onclick="pp();">
-			<input class="bt" type="button" value="Reset Speed" onclick="rs();">
-			</div>
-	</div>
+<div id="master">
+    <div id="logos">
+        <div id="logoMLAB"></div>
+        <div id="logoUPenn"></div>
+    </div>
+
+    <div id="myHeader">
+        <h2 id="title">Heart Simulator</h2>
+        <div id="fileSelect">
+            <select id="filenames" onchange="updateGraph();">
+                {{#each fileList}}
+                <option value="{{filename}}"> <a href="/graph/{{filename}}">{{senario}}</a></option>
+                {{/each}}
+            </select>
+        </div>
+    </div>
+    <div id="heartVisualize">
+        <svg id="nodes" height="600" width="100%">
+            <line id="line1" x1="525" y1="225" x2="525" y2="325" class="line" />
+            <!-- Path1: Node1-Node2-->
+            <line id="line2" x1="525" y1="325" x2="475" y2="425" class="line" />
+            <!-- Path2: Node2-Node4-->
+            <line id="line3" x1="475" y1="425" x2="425" y2="525" class="line" />
+            <!-- Path3: Node4-Node3-->
+            <line id="line4" x1="525" y1="225" x2="625" y2="145" class="line" />
+            <!-- Path4: Node1-Node5-->
+            <line id="line5" x1="525" y1="225" x2="625" y2="225" class="line" />
+            <!-- Path5: Node1-Node6-->
+            <line id="line6" x1="525" y1="225" x2="625" y2="305" class="line" />
+            <!-- Path6: Node1-Node7-->
+            <line id="line7" x1="425" y1="525" x2="325" y2="445" class="line" />
+            <!-- Path7: Node3-Node8-->
+            <line id="line8" x1="425" y1="525" x2="325" y2="525" class="line" />
+            <!-- Path8: Node3-Node9-->
+            <line id="line9" x1="425" y1="525" x2="325" y2="605" class="line" />
+            <!-- Path9: Node3-Node10-->
+            <line id="line10" x1="425" y1="525" x2="625" y2="525" class="line" />
+            <!-- Path10: Node3-Node11-->
+            <line id="line11" x1="625" y1="525" x2="525" y2="325" class="line" />
+            <!-- Path11: Node11-Node2-->
+        </svg>
+        <div id="circle1" class="circle" align="center">1</div>
+        <div id="circle2" class="circle" align="center">2</div>
+        <div id="circle3" class="circle" align="center">3</div>
+        <div id="circle4" class="circle" align="center">4</div>
+        <div id="circle5" class="circle" align="center">5</div>
+        <div id="circle6" class="circle" align="center">6</div>
+        <div id="circle7" class="circle" align="center">7</div>
+        <div id="circle8" class="circle" align="center">8</div>
+        <div id="circle9" class="circle" align="center">9</div>
+        <div id="circle10" class="circle" align="center">10</div>
+        <div id="circle11" class="circle" align="center">11</div>
+    </div>
+    <div id="place">
+        <div id="subtitle">EGM Readings </div>
+        <br>
+        <br>
+        <div class="graphDivs" id="graphDiv1" style="width:370px; height:200px;"></div>
+        <div class="graphDivs" id="graphDiv2" style="width:370px; height:200px;"></div>
+        <div class="graphDivs" id="graphDiv3" style="width:370px; height:200px;"></div>
+    </div>
+    <div id="heartExplain">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td>Please put some explanation or text here to explain the meaning of graphs and nodes!!!sapien purus convallis dolor, in accumsan ex purus ut magna. Nam nec sagittis orci. Maecenas tortor orci, lobortis a accumsan non, gravida vitae quam. Aenean ornare porttitor nibh a feugiat. Nullam mollis congue commodo.</td>
+                <td><a href="javascript:void(0);" onclick="callFunction();"><img src="http://localhost:3000/images/heart.png"></a></td>
+            </tr>
+        </table>
+    </div>
+    <div id="sysmessage">
+    </div>
+
+    <div class="controls">
+        <input class="bt" type="button" value="Play" onclick="play();">
+        <input class="bt" type="button" value="Pause" onclick="pause();">
+        <input class="bt" type="button" value="Rewind" onclick="rewind();">
+        <input class="bt" type="button" value="Faster" onclick="ff();">
+        <input class="bt" type="button" value="Slower" onclick="pp();">
+        <input class="bt" type="button" value="Reset Speed" onclick="rs();">
+    </div>
+</div>
 </body>
 
-<script language = "javascript">
+<script language="javascript">
 var _data = '{{CSV}}';
 var _pathdata = '{{PATH}}';
 var _nodedata = '{{NODE}}';
@@ -233,12 +132,12 @@ var gtimeline = 0;
 var gAnimSpeed = 30;
 var isPlaying = false;
 //var data2 = parseData(_data);
-var originalDataV1 = parseData(_data,0);
-var originalDataV2 = parseData(_data,1);
-var originalDataV3 = parseData(_data,2);
-var graphData = getCurrentTimelineData(originalDataV1,gtimeBegin,gAnimLength);
-var graphDataV2 = getCurrentTimelineData(originalDataV2,gtimeBegin,gAnimLength);
-var graphDataV3 = getCurrentTimelineData(originalDataV3,gtimeBegin,gAnimLength);
+var originalDataV1 = parseData(_data, 0);
+var originalDataV2 = parseData(_data, 1);
+var originalDataV3 = parseData(_data, 2);
+var graphData = getCurrentTimelineData(originalDataV1, gtimeBegin, gAnimLength);
+var graphDataV2 = getCurrentTimelineData(originalDataV2, gtimeBegin, gAnimLength);
+var graphDataV3 = getCurrentTimelineData(originalDataV3, gtimeBegin, gAnimLength);
 var data = [];
 var nodeData = parseNPData(_nodedata);
 var pathData = parseNPData(_pathdata);
@@ -249,7 +148,7 @@ var g = new Dygraph(document.getElementById("graphDiv1"), graphData, {
     drawPoints: false,
     showRoller: true,
     legend: 'always',
-	valueRange: [-1.5, 1.5],
+    valueRange: [-1.5, 1.5],
     labels: ['Time', 'Val1']
 });
 
@@ -275,65 +174,65 @@ var g3 = new Dygraph(document.getElementById("graphDiv3"), graphDataV3, {
 
 
 
-function drawNode(index,data){
-	//console.log(data);
-	var innerLen = data[0].length;
-	index = index > data.length ? data.length - 1: index;
-		for(var i = 0 ; i < innerLen; i ++){
-			//console.log(data[index][i]);
-			switch(data[index][i]){
+function drawNode(index, data) {
+    //console.log(data);
+    var innerLen = data[0].length;
+    index = index > data.length ? data.length - 1 : index;
+    for (var i = 0; i < innerLen; i++) {
+        //console.log(data[index][i]);
+        switch (data[index][i]) {
 
-				case 1:
+            case 1:
 
-					$('#circle'+(i+1)).css('background-color','green');
-				break;
+                $('#circle' + (i + 1)).css('background-color', 'green');
+                break;
 
-				case 2:
-					$('#circle'+(i+1)).css('background-color','red');
-				break;
+            case 2:
+                $('#circle' + (i + 1)).css('background-color', 'red');
+                break;
 
-				default:
-				break;
+            default:
+                break;
 
-			}
+        }
 
-	}
+    }
 }
 
-function drawPath(index,data){
-	var innerLen = data[0].length;
-	index = index > data.length ? data.length - 1: index;
-		for(var i = 0 ; i < innerLen; i ++){
-			//console.log(data[index][i]);
-			switch(data[index][i]){
+function drawPath(index, data) {
+    var innerLen = data[0].length;
+    index = index > data.length ? data.length - 1 : index;
+    for (var i = 0; i < innerLen; i++) {
+        //console.log(data[index][i]);
+        switch (data[index][i]) {
 
-				case 1:
+            case 1:
 
-					$('#line'+(i+1)).css('stroke','blue');
-				break;
+                $('#line' + (i + 1)).css('stroke', 'blue');
+                break;
 
-				case 2:
-					$('#line'+(i+1)).css('stroke','green');
-				break;
-				case 3:
-					$('#line'+(i+1)).css('stroke','yellow');
-				break;
-				case 4:
-					$('#line'+(i+1)).css('stroke','red');
-				break;
+            case 2:
+                $('#line' + (i + 1)).css('stroke', 'green');
+                break;
+            case 3:
+                $('#line' + (i + 1)).css('stroke', 'yellow');
+                break;
+            case 4:
+                $('#line' + (i + 1)).css('stroke', 'red');
+                break;
 
-				default:
-				break;
+            default:
+                break;
 
-			}
+        }
 
-	}
+    }
 }
 
 
 
 function parseNPData(d) {
-	
+
     var tmp = d.split(";");
     var len = tmp.length;
     var re = []
@@ -349,13 +248,14 @@ function parseNPData(d) {
 
 }
 
-function updateGraph(){
-var e = document.getElementById("filenames");
-var fl = e.options[e.selectedIndex].value;
-console.log(fl);
-window.location.href = "http://localhost:3000/graph/EGM1-1-1?fileLoader="+fl;
+function updateGraph() {
+    var e = document.getElementById("filenames");
+    var fl = e.options[e.selectedIndex].value;
+    console.log(fl);
+    window.location.href = "http://localhost:3000/graph/EGM1-1-1?fileLoader=" + fl;
 }
-function parseData(d,index) {
+
+function parseData(d, index) {
 
     var tmp = d.split(";");
     var dataIndex = 1;
@@ -366,11 +266,11 @@ function parseData(d,index) {
         re[i] = [];
         _tmp[i] = tmp[i].split(",");
         re[i][0] = i;
-		for (var j = 0; j < _tmp[i].length; j++) {
-        	if(index == j){
-            	re[i][dataIndex] = parseFloat(_tmp[i][j]);
-            	//dataIndex++ for future multiple culoum reference
-        	}
+        for (var j = 0; j < _tmp[i].length; j++) {
+            if (index == j) {
+                re[i][dataIndex] = parseFloat(_tmp[i][j]);
+                //dataIndex++ for future multiple culoum reference
+            }
         }
     }
     re.pop();
@@ -378,80 +278,86 @@ function parseData(d,index) {
 }
 
 window.intervalId = setInterval(function() {
-		if(isPlaying){
-    	   g.updateOptions( { 'file': animate("V1")} );
-         g2.updateOptions( { 'file': animate("V2")} );
-         g3.updateOptions( { 'file': animate("V3")} );
-      		drawPath(gtimeline,pathData);
-      		drawNode(gtimeline,nodeData);
-      		gtimeline+=33;
-      		if(gtimeline>= (pathData.length - 35))
-      			gtimeline = pathData.length - 36;
+    if (isPlaying) {
+        g.updateOptions({
+            'file': animate("V1")
+        });
+        g2.updateOptions({
+            'file': animate("V2")
+        });
+        g3.updateOptions({
+            'file': animate("V3")
+        });
+        drawPath(gtimeline, pathData);
+        drawNode(gtimeline, nodeData);
+        gtimeline += 33;
+        if (gtimeline >= (pathData.length - 35))
+            gtimeline = pathData.length - 36;
 
-      		console.log(gtimeline);
-    	}  
+        console.log(gtimeline);
+    }
 }, 30);
 
 
-function animate(chart){
-	gtimeBegin+= gAnimSpeed;
-	gAnimLength += gAnimSpeed;
-	if(gAnimLength > originalDataV1.length){
-		gtimeBegin -= gAnimSpeed;
-		gAnimLength -= gAnimSpeed;
-		document.getElementById('sysmessage').innerHTML =  "End of File";
-	}
-	switch(chart){
-		case "V1":
-			return getCurrentTimelineData(originalDataV1, gtimeBegin,gAnimLength);
-		break;
+function animate(chart) {
+    gtimeBegin += gAnimSpeed;
+    gAnimLength += gAnimSpeed;
+    if (gAnimLength > originalDataV1.length) {
+        gtimeBegin -= gAnimSpeed;
+        gAnimLength -= gAnimSpeed;
+        document.getElementById('sysmessage').innerHTML = "End of File";
+    }
+    switch (chart) {
+        case "V1":
+            return getCurrentTimelineData(originalDataV1, gtimeBegin, gAnimLength);
+            break;
 
-		case "V2":
-			return getCurrentTimelineData(originalDataV2, gtimeBegin,gAnimLength);
-		break;
+        case "V2":
+            return getCurrentTimelineData(originalDataV2, gtimeBegin, gAnimLength);
+            break;
 
-		case "V3":
-			return getCurrentTimelineData(originalDataV3, gtimeBegin,gAnimLength);
-		break;
+        case "V3":
+            return getCurrentTimelineData(originalDataV3, gtimeBegin, gAnimLength);
+            break;
 
-		default:
-		break;
-	}
-}
-function getCurrentTimelineData(data,begin,end){
-	var cloneArray = data.slice();
-	var tmp = cloneArray.splice(begin,(end-begin));
-	return tmp ;
+        default:
+            break;
+    }
 }
 
-function pause(){
-	isPlaying = false;
+function getCurrentTimelineData(data, begin, end) {
+    var cloneArray = data.slice();
+    var tmp = cloneArray.splice(begin, (end - begin));
+    return tmp;
 }
 
-function play(){
-	isPlaying = true;
-}	
-
-function rewind(){
-	gtimeBegin = 0;
-	gAnimLength = gEnd;
-	document.getElementById("sysmessage").innerHTML = "";
+function pause() {
+    isPlaying = false;
 }
 
-function ff(){
-	gAnimSpeed+=3;
+function play() {
+    isPlaying = true;
 }
 
-function pp(){
-	gAnimSpeed -= 3;
-	if(gAnimSpeed<=0)
-		gAnimSpeed = 1;
+function rewind() {
+    gtimeBegin = 0;
+    gAnimLength = gEnd;
+    document.getElementById("sysmessage").innerHTML = "";
 }
 
-function rs(){
-	gAnimSpeed = 1;
+function ff() {
+    gAnimSpeed += 3;
 }
 
+function pp() {
+    gAnimSpeed -= 3;
+    if (gAnimSpeed <= 0)
+        gAnimSpeed = 1;
+}
+
+function rs() {
+    gAnimSpeed = 1;
+}
 </script>
 
 </html>

@@ -1,0 +1,176 @@
+h1 {
+    color: blue
+}
+p {
+    color: green
+}
+body,
+html {
+    background-color: #000;
+}
+.circle {
+    border-radius: 50%;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    margin: 30px 0 0 -150px;
+    /* width and height can be anything, as long as they're equal */
+}
+#circle1 {
+    background: green;
+    left: 500px;
+    top: 200px;
+}
+#circle2 {
+    background: green;
+    left: 500px;
+    top: 300px;
+}
+#circle3 {
+    background: green;
+    left: 400px;
+    top: 500px;
+}
+#circle4 {
+    background: green;
+    left: 450px;
+    top: 400px;
+}
+#circle5 {
+    background: green;
+    left: 600px;
+    top: 120px;
+}
+#circle6 {
+    background: green;
+    left: 600px;
+    top: 200px;
+}
+#circle7 {
+    background: green;
+    left: 600px;
+    top: 280px;
+}
+#circle8 {
+    background: green;
+    left: 300px;
+    top: 420px;
+}
+#circle9 {
+    background: green;
+    left: 300px;
+    top: 500px;
+}
+#circle10 {
+    background: green;
+    left: 300px;
+    top: 580px;
+}
+#circle11 {
+    background: green;
+    left: 600px;
+    top: 500px;
+}
+.line {
+    stroke: rgb(255, 0, 0);
+    stroke-width: 4;
+}
+#heartVisualize {
+    height: 650px;
+    margin: 0px 0 0 -150px;
+    padding: 0 0 0 0px;
+    background-color: #f2f2f2;
+}
+#logos {
+    position: absolute;
+    margin: 5px 0 0 20px;
+}
+#logoMLAB {
+    background-image: url('http://localhost:3000/images/mlab_logo_bw.png');
+    width: 155px;
+    height: 33px;
+    background-position: left;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+#logoUPenn {
+    background-image: url('http://localhost:3000/images/UPenn_logo_white.png');
+    width: 155px;
+    height: 33px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+#title {
+    display: inline-block;
+    position: relative;
+    font-size: 36px;
+    margin: 0px 0 0 10%;
+}
+#heartVisualize div {} #fileSelect {
+    margin: 10px 100px 0 0;
+    display: inline-block;
+    float: right;
+    z-index: 1000;
+}
+#myHeader {
+    text-align: center;
+    padding: 0 0 35px 0;
+}
+#nodes {
+    margin: -50px 0 0 0;
+}
+#place {
+    float: right;
+    margin: -600px 100px 0 0;
+    -ms-transform: scale(1, 1);
+    /* IE 9 */
+    
+    -webkit-transform: scale(1, 1);
+    /* Safari */
+    
+    transform: scale(1, 1);
+    color: #333;
+}
+#heartExplain {
+    width: 60%;
+    color: #333;
+    text-align: left;
+    float: right;
+    margin: -350px 0 0 0;
+}
+body,
+html {
+    font-family: Heveltica, Arial;
+    color: #fff;
+}
+.graphDivs {
+    width: 500px;
+    margin: 0px auto 0 auto;
+    display: inline-block;
+}
+#master {
+    text-align: center;
+    padding: 20px 0;
+}
+#subtitle {
+    font-size: 14px;
+    float: right;
+    text-align: right;
+    margin: 0 0 0 0;
+}
+.controls {
+    margin: 40px 0 0 0;
+}
+.bt {
+    width: 100px;
+    height: 40px;
+    margin: 0 20px 0 0;
+}
+#sysmessage {
+    color: rgb(77, 0, 25);
+    font-size: 22px;
+    margin: 20px 0 20px 0;
+}
+.dygraph-legend {
+    color: #333;
+}
