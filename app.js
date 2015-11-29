@@ -35,12 +35,18 @@ fs.readdir(p,function (err, files){
 	    });
 }) ;
 
+app.use(express.static('public'));
+app.use('/images', express.static('public'));
+app.use('/js', express.static('public'));
+
+app.use(express.static('files'));
 
 app.set('view engine', 'html');
 app.engine('html', hbs.__express);
 var bodyParser = require('body-parser'); 
 app.use(bodyParser()); 
- 
+
+
 app.get('/', function(req, res) {
 	
     res.render('index',{title:"My Blog", entries:fl.getBlogEntries(), list:f,fname:fn, fileList:Func.getFileList()});
@@ -48,6 +54,22 @@ app.get('/', function(req, res) {
  
 app.get('/about', function(req, res) {
     res.render('about', {title:"About Me"});
+});
+
+app.get('/images/mlab_logo_bw.png', function(req, res) {
+    res.sendfile(__dirname + '/images/mlab_logo_bw.png');
+});
+
+app.get('/images/UPenn_logo_white.png', function(req, res) {
+    res.sendfile(__dirname + '/images/UPenn_logo_white.png');
+});
+
+app.get('/images/heart.png', function(req, res) {
+    res.sendfile(__dirname + '/images/heart.png');
+});
+
+app.get('/js/Chart.js', function(req, res) {
+    res.sendfile(__dirname + '/js/Chart.js');
 });
 
 app.get('/graph/:fname', function(req, res) {
