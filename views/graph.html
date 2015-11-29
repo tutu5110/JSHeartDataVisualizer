@@ -32,7 +32,10 @@
 
     function callFunction(){
     	var url = window.location.href ;
-    	window.location.href = url + "&call=1";
+    	if(url.indexOf("call") == -1)
+    		window.location.href = url + "&call=1";
+    	else
+    		window.location.href = url;
     }
 </script>
 </head>
