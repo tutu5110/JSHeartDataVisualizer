@@ -14,7 +14,7 @@
 
 <script type="text/javascript">
 
-    var graphFromRight = -50;
+    var graphFromRight = -100;
 
     $(document).ready(function() {
         console.log("JQUERY READY");
@@ -27,13 +27,18 @@
         //please change the position of the nodes here, the -50px 0 0 -100 means : up, right, bottom left respectively
         $('#nodes').css("margin", "-50px 0 0 -100px");
         //please change the position of the path here, the -50px 0 0 -100 means : up, right, bottom left respectively
-        $('.circle').css("margin", "40px 0 0 -180px");
+        $('.circle').css("margin", "30px 0 0 -180px");
     });
 
     function callFunction(){
     	var url = window.location.href ;
     	if(url.indexOf("call") == -1)
-    		window.location.href = url + "&call=1";
+    		{
+    		if(url.indexOf("fileLoader") == -1)
+    		window.location.href = url + "?call=1";
+    		else
+			window.location.href = url + "&call=1";    			
+    		}
     	else
     		window.location.href = url;
     }
@@ -65,17 +70,17 @@
             <!-- Path2: Node2-Node4-->
             <line id="line3" x1="475" y1="425" x2="425" y2="525" class="line" />
             <!-- Path3: Node4-Node3-->
-            <line id="line4" x1="525" y1="225" x2="625" y2="145" class="line" />
+            <line id="line4" x1="525" y1="225" x2="625" y2="145" class="line"  stroke-width="5" stroke-linecap="round" stroke-dasharray="1, 8"/>
             <!-- Path4: Node1-Node5-->
-            <line id="line5" x1="525" y1="225" x2="625" y2="225" class="line" />
+            <line id="line5" x1="525" y1="225" x2="625" y2="225" class="line"  stroke-width="5" stroke-linecap="round" stroke-dasharray="1, 8" />
             <!-- Path5: Node1-Node6-->
-            <line id="line6" x1="525" y1="225" x2="625" y2="305" class="line" />
+            <line id="line6" x1="525" y1="225" x2="625" y2="305" class="line"  stroke-width="5" stroke-linecap="round" stroke-dasharray="1, 8"/>
             <!-- Path6: Node1-Node7-->
-            <line id="line7" x1="425" y1="525" x2="325" y2="445" class="line" />
+            <line id="line7" x1="425" y1="525" x2="325" y2="445" class="line"  stroke-width="5" stroke-linecap="round" stroke-dasharray="1, 8"/>
             <!-- Path7: Node3-Node8-->
-            <line id="line8" x1="425" y1="525" x2="325" y2="525" class="line" />
+            <line id="line8" x1="425" y1="525" x2="325" y2="525" class="line"  stroke-width="5" stroke-linecap="round" stroke-dasharray="1, 8" />
             <!-- Path8: Node3-Node9-->
-            <line id="line9" x1="425" y1="525" x2="325" y2="605" class="line" />
+            <line id="line9" x1="425" y1="525" x2="325" y2="605" class="line"  stroke-width="5" stroke-linecap="round" stroke-dasharray="1, 8"/>
             <!-- Path9: Node3-Node10-->
             <line id="line10" x1="425" y1="525" x2="625" y2="525" class="line" />
             <!-- Path10: Node3-Node11-->
@@ -132,7 +137,7 @@ var gtimeBegin = 0;
 var gEnd = 3000;
 var gAnimLength = gEnd;
 var gtimeline = 0;
-var gAnimSpeed = 10;
+var gAnimSpeed = 30;
 var isPlaying = false;
 //var data2 = parseData(_data);
 var originalDataV1 = parseData(_data, 0);

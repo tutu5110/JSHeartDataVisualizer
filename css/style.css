@@ -13,6 +13,8 @@ html {
     position: absolute;
     width: 50px;
     height: 50px;
+    display: table-cell;
+    vertical-align: middle;
     margin: 30px 0 0 -150px;
     /* width and height can be anything, as long as they're equal */
 }
